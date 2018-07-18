@@ -17,8 +17,8 @@ Now you should be able to install using the following command:
 ```
 cd <directory where you do your Git clones>
 git clone git@github.com:ebi-gene-expression-group/bioconda-recipes.git
-git checkout r-scater-scripts
-cd bioconda-recipes/recipes/r-scater-scripts
+git checkout bioconductor-scater-scripts
+cd bioconda-recipes/recipes/bioconductor-scater-scripts
 conda build .
-conda install --force --use-local r-scater-scripts
+conda install --force --use-local bioconductor-scater-scripts
 ```
