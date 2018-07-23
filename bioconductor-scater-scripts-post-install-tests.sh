@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+script_dir=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+script_name=$0
+
 # This is a test script designed to test that everything works in the various
 # accessory scripts in this package. Parameters used have absolutely NO
 # relation to best practice and this should not be taken as a sensible
@@ -27,7 +30,7 @@ fi
 
 test_data_url='https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz'
 test_working_dir=`pwd`/'post_install_tests'
-test_data_archive=$test_working_dir/`basename $test_data_url`
+export test_data_archive=$test_working_dir/`basename $test_data_url`
 
 # Clean up if specified
 
@@ -43,82 +46,46 @@ fi
 # Initialise directories
 
 output_dir=$test_working_dir/outputs
-data_dir=$test_working_dir/test_data
+export data_dir=$test_working_dir/test_data
 
 mkdir -p $test_working_dir
 mkdir -p $output_dir
 mkdir -p $data_dir
-
-cd $test_working_dir
 
 ################################################################################
 # Fetch test data 
 ################################################################################
 
 if [ ! -e "$test_data_archive" ]; then
-    wget $test_data_url
+    wget $test_data_url -P $test_working_dir
+    
 fi
-
-################################################################################
-# Accessory functions
-################################################################################
-
-function report_status() {
-    script=$1
-    status=$2
-
-    if [ $status -ne 0 ]; then
-        echo "FAIL: $script"
-        exit 1
-    else
-        echo "SUCCESS: $script"
-    fi
-}
-
-# Run a command, checking the primary output depending on the value of
-# 'use_existing_outputs'
-
-run_command() {
-    command=$1
-    test_output=$2
-
-    echo "$command"
-    command_name=`echo "$command" | awk '{print $1}'`
-
-    if [ -e "$test_output" ] && [ "$use_existing_outputs" == "true" ]; then
-        echo "Using cached output for $command_name"
-    else
-        eval $command
-        report_status $command_name $?
-    fi
-}
-
+    
 ################################################################################
 # List tool outputs/ inputs
 ################################################################################
 
-raw_singlecellexperiment="$output_dir/raw_sce.rds"
+export raw_matrix=$data_dir'/matrix.mtx'
+export raw_singlecellexperiment_object="$output_dir/raw_sce.rds"
 
 ## Test parameters- would form config file in real workflow. DO NOT use these
 ## as default values without being sure what they mean.
+
 
 
 ################################################################################
 # Test individual scripts
 ################################################################################
 
-# Extract the test data
+# Make the script options available to the tests so we can skip tests e.g.
+# where one of a chain has completed successfullly.
 
-echo "Extracting test data from archive"
-run_command "tar -xvzf $test_data_archive --strip-components 2 -C test_data" $raw_matrix
+export use_existing_outputs
 
-# Run read-10x.R
+# Derive the tests file name from the script name
 
-run_command "scater-read-10x-results.R -d test_data -o $raw_singlecellexperiment" $raw_matrix_object
+tests_file="${script_name%.*}".bats
 
-################################################################################
-# Finish up
-################################################################################
+# Execute the bats tests
 
-echo "All tests passed"
-exit 0
+$tests_file
