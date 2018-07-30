@@ -67,22 +67,22 @@ suppressPackageStartupMessages(require(scater))
 
 # Input from serialized R object
 
-scater_object <- readRDS(opt$input_object_file)
+SingleCellExperiment <- readRDS(opt$input_object_file)
 
 
 # calculate CPMs from raw count matrix
 
-cpm(scater_object) <- calculateCPM(scater_object, exprs_values = opt$exprs_values, use_size_factors = opt$size_factors)
+cpm(SingleCellExperiment) <- calculateCPM(SingleCellExperiment, exprs_values = opt$exprs_values, use_size_factors = opt$size_factors)
 
 
 # Output to a serialized R object
 
-saveRDS(scater_object, file = opt$output_object_file)
+saveRDS(SingleCellExperiment, file = opt$output_object_file)
 
 
 # Output cpm matrix to a simple file
 
-write.csv(as.matrix(cpm(scater_object)), file = opt$output_text_file, row.names = TRUE)
+write.csv(as.matrix(cpm(SingleCellExperiment)), file = opt$output_text_file, row.names = TRUE)
 
 
 

@@ -35,7 +35,7 @@ if ( ! dir.exists(opt$data_dir)){
   stop((paste('Directory', opt$data_dir, 'does not exist')))
 }
 
-# Now we're hapy with the arguments, load Seurat and do the work
+# Now we're hapy with the arguments, load Scater and do the work
 
 suppressPackageStartupMessages(require(scater))
 

@@ -73,6 +73,10 @@ export cpm_matrix=$output_dir'/cpm_matrix.mtx'
 ## Test parameters- would form config file in real workflow. DO NOT use these
 ## as default values without being sure what they mean.
 
+### oprional variables parameters
+export exprs_values="counts"
+export size_factors='FALSE'
+
 ################################################################################
 # Test individual scripts
 ################################################################################
