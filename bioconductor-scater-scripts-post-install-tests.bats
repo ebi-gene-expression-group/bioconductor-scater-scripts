@@ -25,3 +25,16 @@
     [ "$status" -eq 0 ]
     [ -f  "$raw_singlecellexperiment_object" ]
 }
+
+
+@test "Read raw SingleCellExperiment counts and convert to CPM" {
+    if [ "$use_existing_outputs" = 'true' ] && [ -f "$cpm_singlecellexperiment_object" ] && [ -f "$cpm_matrix" ]; then
+        skip "$use_existing_outputs $cpm_singlecellexperiment_object $cpm_matrix exists and use_existing_outputs is set to 'true'"
+    fi
+
+    run rm -f $cpm_singlecellexperiment_object $cpm_matrix && scater-calculate-cpm-from-counts.R -i $raw_singlecellexperiment_object -e "counts" -s FALSE -o $cpm_singlecellexperiment_object -t $cpm_matrix
+    
+    [ "$status" -eq 0 ]
+    [ -f  "$cpm_singlecellexperiment_object" ]
+    [ -f  "$cpm_matrix" ]
+}

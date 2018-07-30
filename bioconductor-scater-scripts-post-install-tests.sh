@@ -67,11 +67,11 @@ fi
 
 export raw_matrix=$data_dir'/matrix.mtx'
 export raw_singlecellexperiment_object="$output_dir/raw_sce.rds"
+export cpm_singlecellexperiment_object="$output_dir/cpm_sce.rds"
+export cpm_matrix=$output_dir'/cpm_matrix.mtx'
 
 ## Test parameters- would form config file in real workflow. DO NOT use these
 ## as default values without being sure what they mean.
-
-
 
 ################################################################################
 # Test individual scripts
