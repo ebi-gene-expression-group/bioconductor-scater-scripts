@@ -64,15 +64,16 @@ if ( opt$exprs_values != "counts"){
 
 suppressPackageStartupMessages(require(scater))
 
+
 # Input from serialized R object
 
 scater_object <- readRDS(opt$input_object_file)
 
-print(opt)
 
 # calculate CPMs from raw count matrix
 
-cpm(scater_object) <- calculateCPM(scater_object, exprs_values = paste0(opt$exprs_values), use_size_factors = paste0(opt$size_factors))
+cpm(scater_object) <- calculateCPM(scater_object, exprs_values = opt$exprs_values, use_size_factors = opt$size_factors)
+
 
 # Output to a serialized R object
 
