@@ -19,13 +19,6 @@ option_list = list(
     help = "File name in which a serialized R SingleCellExperiment object where object matrix found  "
   ),
   make_option(
-    c("-e", "--exprs-values"),
-    action = "store",
-    default = NA,
-    type = 'character',
-    help = "A string specifying the assay of object containing the count matrix, if object is a SingleCellExperiment."
-  ),
-  make_option(
     c("-s", "--size-factors"),
     action = "store",
     default = NA,
@@ -48,16 +41,12 @@ option_list = list(
   )
 )
 
-opt <- wsc_parse_args(option_list, mandatory = c('input_object_file', 'exprs_values', 'size_factors', 'output_object_file', 'output_text_file'))
+opt <- wsc_parse_args(option_list, mandatory = c('input_object_file', 'size_factors', 'output_object_file', 'output_text_file'))
 
 # Check parameter values defined
 
 if ( ! file.exists(opt$input_object_file)){
   stop((paste('File object or matrix', opt$input_object_file, 'does not exist')))
-}
-
-if ( opt$exprs_values != "counts"){
-  stop((paste('expression values', opt$exprs_values, 'needs to be counts')))
 }
 
 # Once arguments are satifcatory, load Scater package
@@ -72,7 +61,7 @@ SingleCellExperiment <- readRDS(opt$input_object_file)
 
 # calculate CPMs from raw count matrix
 
-cpm(SingleCellExperiment) <- calculateCPM(SingleCellExperiment, exprs_values = opt$exprs_values, use_size_factors = opt$size_factors)
+cpm(SingleCellExperiment) <- calculateCPM(object = SingleCellExperiment, use.size.factors = opt$size_factors)
 
 
 # Output to a serialized R object

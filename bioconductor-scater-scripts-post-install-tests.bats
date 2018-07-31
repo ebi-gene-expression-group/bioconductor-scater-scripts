@@ -32,7 +32,7 @@
         skip "$use_existing_outputs $cpm_singlecellexperiment_object $cpm_matrix exists and use_existing_outputs is set to 'true'"
     fi
 
-    run rm -f $cpm_singlecellexperiment_object $cpm_matrix && scater-calculate-cpm-from-counts.R -i $raw_singlecellexperiment_object -e $exprs_values -s $size_factors -o $cpm_singlecellexperiment_object -t $cpm_matrix
+    run rm -f $cpm_singlecellexperiment_object $cpm_matrix && scater-calculate-cpm-from-counts.R -i $raw_singlecellexperiment_object -s $size_factors -o $cpm_singlecellexperiment_object -t $cpm_matrix
     
     [ "$status" -eq 0 ]
     [ -f  "$cpm_singlecellexperiment_object" ]
