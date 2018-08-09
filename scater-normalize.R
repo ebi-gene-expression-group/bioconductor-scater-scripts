@@ -60,25 +60,21 @@ option_list = list(
   )
 )
 
-opt <- wsc_parse_args(option_list, mandatory = c('input_object_file', 'exprs_values','return_log','log_exprs_offset','centre_size_factors','return_norm_as_exprs','output_object_file'))
+opt <- wsc_parse_args(option_list, mandatory = c('input_object_file', 'exprs_values', 'return_log', 'log_exprs_offset', 'centre_size_factors', 'return_norm_as_exprs', 'output_object_file'))
 
 # Check parameter values defined
 if ( ! file.exists(opt$input_object_file)){
   stop((paste('File object or matrix', opt$input_object_file, 'does not exist')))
 }
 
-
-# Once arguments are satifcatory, load Scater package
+# Once arguments are satisfcatory, load Scater package
 suppressPackageStartupMessages(require(scater))
-
 
 # Input from serialized R object
 SingleCellExperiment <- readRDS(opt$input_object_file)
 
-
 # calculate CPMs from raw count matrix
-SingleCellExperiment  <- normalize(object = SingleCellExperiment, exprs_values = opt$exprs_values, return_log = opt$return_log, log_exprs_offset =opt$log_exprs_offset, centre_size_factors = opt$centre_size_factors, return_norm_as_exprs = opt$return_norm_as_exprs)
-
+SingleCellExperiment  <- normalize(object = SingleCellExperiment, exprs_values = opt$exprs_values, return_log = opt$return_log, log_exprs_offset = opt$log_exprs_offset, centre_size_factors = opt$centre_size_factors, return_norm_as_exprs = opt$return_norm_as_exprs)
 
 # Output to a serialized R object
 saveRDS(SingleCellExperiment, file = opt$output_object_file)
