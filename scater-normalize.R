@@ -56,7 +56,7 @@ option_list = list(
     action = "store",
     default = NA,
     type = 'character',
-    help = "File name in which to store serialized R object of type 'Scater'.'"
+    help = "File name in which to store serialized R object of type 'SingleCellExperiment'.'"
   )
 )
 
