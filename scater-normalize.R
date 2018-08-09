@@ -60,7 +60,7 @@ option_list = list(
   )
 )
 
-opt <- wsc_parse_args(option_list, mandatory = c('input_object_file', 'exprs_values', 'return_log', 'log_exprs_offset', 'centre_size_factors', 'return_norm_as_exprs', 'output_object_file'))
+opt <- wsc_parse_args(option_list, mandatory = c('input_object_file', 'output_object_file'))
 
 # Check parameter values defined
 if ( ! file.exists(opt$input_object_file)){
