@@ -18,21 +18,21 @@ option_list = list(
   make_option(
     c("-e", "--exprs-values"),
     action = "store",
-    default ='counts',
+    default = 'counts',
     type = 'character',
     help= "character string indicating which slot of the assayData from the ‘SingleCellExperiment’ object should be used to compute log-transformed expression values. Valid options are ‘'counts'’, ‘'tpm'’, ‘'cpm'’ and ‘'fpkm'’. Defaults to the first available value of the options in the order shown."
   ),
   make_option(
     c("-l", "--return-log"),
     action = "store",
-    default =TRUE,
+    default = TRUE,
     type = 'logical',
     help = "logical(1), should normalized values be returned on the log scale? Default is ‘TRUE’. If ‘TRUE’, output is stored as 'logcounts' in the returned object; if ‘FALSE’ output is stored as 'normcounts'."
   ),
   make_option(
     c("-f", "--log-exprs-offset"),
     action = "store",
-    default =NULL,
+    default = NULL,
     type = 'numeric',
     help = "scalar numeric value giving the offset to add when taking log2 of normalised values to return as expression values. If NULL, value is taken from metadata(object)$log.exprs.offset if defined, otherwise 1."
   ),
@@ -40,14 +40,14 @@ option_list = list(
   make_option(
     c("-c", "--centre-size-factors"),
     action = "store",
-    default =TRUE,
+    default = TRUE,
     type = 'logical',
     help = "logical, should size factors centred at unity be stored in the returned object if ‘exprs_values='counts'? Defaults to TRUE. Regardless, centred size factors will always be used to calculate 'exprs' from count data. This argument is ignored for other ‘exprs_values’, where no size factors are used/modified."
   ),
   make_option(
     c("-r", "--return-norm-as-exprs"),
     action = "store",
-    default =TRUE,
+    default = TRUE,
     type = 'logical',
     help = "logical, should the normalised expression values be returned to the 'exprs' slot of the object? Default is TRUE. If FALSE, values in the 'exprs' slot will be left untouched. Regardless, normalised expression values will be returned in the 'norm_exprs(object)'' slot.'."
   ),
