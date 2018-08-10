@@ -68,14 +68,19 @@ fi
 export raw_matrix=$data_dir'/matrix.mtx'
 export raw_singlecellexperiment_object="$output_dir/raw_sce.rds"
 export cpm_singlecellexperiment_object="$output_dir/cpm_sce.rds"
+export norm_singlecellexperiment_object="$output_dir/norm_sce.rds"
 export cpm_matrix=$output_dir'/cpm_matrix.mtx'
 
 ## Test parameters- would form config file in real workflow. DO NOT use these
 ## as default values without being sure what they mean.
 
 ### optional variables parameters
-export exprs_values="counts"
 export size_factors='TRUE'
+export exprs_values="counts"
+export return_log='TRUE'
+export log_exprs_offset='NULL'
+export centre_size_factors='TRUE'
+export return_norm_as_exprs='TRUE'
 
 ################################################################################
 # Test individual scripts

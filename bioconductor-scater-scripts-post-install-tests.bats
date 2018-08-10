@@ -38,3 +38,14 @@
     [ -f  "$cpm_singlecellexperiment_object" ]
     [ -f  "$cpm_matrix" ]
 }
+
+@test "Normalisation of raw SingleCellExperiment counts" {
+    if [ "$use_existing_outputs" = 'true' ] && [ -f "$norm_singlecellexperiment_object" ]; then
+        skip "$use_existing_outputs $norm_singlecellexperiment_object exists and use_existing_outputs is set to 'true'"
+    fi
+
+    run rm -f $norm_singlecellexperiment_object && scater-normalize.R -i $raw_singlecellexperiment_object -e $exprs_values -l $return_log -f $log_exprs_offset -c $centre_size_factors -r $return_norm_as_exprs -o $norm_singlecellexperiment_object
+    
+    [ "$status" -eq 0 ]
+    [ -f  "$norm_singlecellexperiment_object" ]
+}
