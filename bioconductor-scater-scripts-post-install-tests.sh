@@ -66,9 +66,11 @@ fi
 ################################################################################
 
 export raw_matrix=$data_dir'/matrix.mtx'
+export feature_controls=$data_dir'/feature_controls.tsv'
 export raw_singlecellexperiment_object="$output_dir/raw_sce.rds"
 export cpm_singlecellexperiment_object="$output_dir/cpm_sce.rds"
 export norm_singlecellexperiment_object="$output_dir/norm_sce.rds"
+export qc_singlecellexperiment_object="$output_dir/qc_sce.rds"
 export cpm_matrix=$output_dir'/cpm_matrix.mtx'
 
 ## Test parameters- would form config file in real workflow. DO NOT use these
@@ -81,6 +83,10 @@ export return_log='TRUE'
 export log_exprs_offset='NULL'
 export centre_size_factors='TRUE'
 export return_norm_as_exprs='TRUE'
+export feature_controls='NULL'
+export cell_controls='NULL'
+export nmads='5'
+export pct_feature_controls_threshold='80'
 
 ################################################################################
 # Test individual scripts
