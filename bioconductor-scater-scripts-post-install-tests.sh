@@ -66,7 +66,6 @@ fi
 ################################################################################
 
 export raw_matrix=$data_dir'/matrix.mtx'
-export feature_controls=$data_dir'/feature_controls.tsv'
 export raw_singlecellexperiment_object="$output_dir/raw_sce.rds"
 export cpm_singlecellexperiment_object="$output_dir/cpm_sce.rds"
 export norm_singlecellexperiment_object="$output_dir/norm_sce.rds"
