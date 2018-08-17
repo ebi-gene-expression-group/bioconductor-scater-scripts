@@ -71,6 +71,7 @@ export cpm_singlecellexperiment_object="$output_dir/cpm_sce.rds"
 export norm_singlecellexperiment_object="$output_dir/norm_sce.rds"
 export qc_singlecellexperiment_object="$output_dir/qc_sce.rds"
 export cpm_matrix=$output_dir'/cpm_matrix.mtx'
+export test_genes="$data_dir/random_genes.txt"
 
 ## Test parameters- would form config file in real workflow. DO NOT use these
 ## as default values without being sure what they mean.
@@ -82,10 +83,12 @@ export return_log='TRUE'
 export log_exprs_offset='NULL'
 export centre_size_factors='TRUE'
 export return_norm_as_exprs='TRUE'
-export feature_controls='NULL'
+export feature_controls=$(echo $test_genes)
 export cell_controls='NULL'
-export nmads='5'
-export pct_feature_controls_threshold='80'
+export nmads=5
+export pct_feature_controls_threshold=80
+export n_spike_ins=2
+export n_genes=10
 
 ################################################################################
 # Test individual scripts

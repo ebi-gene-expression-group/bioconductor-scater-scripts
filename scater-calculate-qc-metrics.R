@@ -13,14 +13,14 @@ option_list = list(
     action = "store",
     default = NA,
     type = 'character',
-    help = "File name in which a serialized R SingleCellExperiment object where object matrix found"
+    help = "SingleCellExperiment object containing expression values and experimental information. Must have been appropriatelyprepared"
   ),
   make_option(
     c("-e", "--exprs-values"),
     action = "store",
     default = 'counts',
     type = 'character',
-    help= "character string indicating which slot of the assayData from the 'SingleCellExperiment' object should be used to compute log-transformed expression values. Valid options are 'counts', 'tpm', 'cpm' and 'fpkm'. Defaults to the first available value of the options in the order shown."
+    help= "character(1), indicating slot of the 'assays' of the 'object' should be used to define expression? Valid options are 'counts' [default; recommended],'tpm','fpkm' and 'logcounts', or anything else in the object added manually by the user."
   ),
   make_option(
     c("-f", "--feature-controls"),
@@ -34,7 +34,7 @@ option_list = list(
     action = "store",
     default = NULL,
     type = 'character',
-    help = "a character vector of cell (sample) names, or a logical vector, or a numeric vector of indices used to identify cell controls (for example, blank wells or bulk controls)."
+    help = "file to be used to derive a vector of cell (sample) names used to identify cell controls (for example, blank wells or bulk controls)."
   ),
   make_option(
     c("-n", "--nmads"),
@@ -55,11 +55,13 @@ option_list = list(
     action = "store",
     default = NA,
     type = 'character',
-    help = "File name in which to store serialized R object of type 'SingleCellExperiment'."
+    help = "file name in which to store serialized R object of type 'SingleCellExperiment'."
   )
 )
 
 opt <- wsc_parse_args(option_list, mandatory = c('input_object_file', 'output_object_file'))
+
+print(opt)
 
 # Check parameter values defined
 if ( ! file.exists(opt$input_object_file)){
@@ -68,16 +70,17 @@ if ( ! file.exists(opt$input_object_file)){
 
 # Check feature_controls
 if (! is.null(opt$feature_controls) && opt$feature_controls != 'NULL'){
-  if (! file.exists(opt$feature_controls)){
-    stop((paste('Supplied feature_controls file', opt$feature_controls, 'does not exist')))
-  }else{
-    feature_controls_files <- readLines(opt$feature_controls)
-    feature_controls<-list()
-    for (fileNames in feature_controls_files){
-        feature_controls_files_path <- paste(dirname(opt$feature_controls),fileNames, sep="/")
-        feature_controls[[fileNames]] <- as.numeric(read.csv(feature_controls_files_path, header=FALSE, stringsAsFactors = FALSE))
-       } 
-  }
+    feature_control_files <- readLines(opt$feature_controls)
+    # Check the files one-by-on
+    for (fileName in feature_control_files){
+        if (! file.exists(fileName)){
+          stop((paste('Supplied feature_controls file', fileName, 'does not exist')))
+        }
+    }
+    # Read the list of files into a list of vectors
+    feature_controls <- lapply(feature_control_files, readLines)
+    #Give the list names derived from the individual file names
+    names(feature_controls) <- basename(feature_control_files)
 }else{
   feature_controls <- NULL
 }
