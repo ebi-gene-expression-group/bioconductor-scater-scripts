@@ -13,7 +13,7 @@ option_list = list(
     action = "store",
     default = NA,
     type = 'character',
-    help = "SingleCellExperiment object containing expression values and experimental information. Must have been appropriatelyprepared"
+    help = "singleCellExperiment object containing expression values and experimental information. Must have been appropriatelyprepared"
   ),
   make_option(
     c("-e", "--exprs-values"),
@@ -27,7 +27,7 @@ option_list = list(
     action = "store",
     default = NULL,
     type = 'character',
-    help = "comma-separated list of files with one feature per line. A named list is created containing one or more vectors to identify feature controls (for example, ERCC spike-in genes, mitochondrial genes, etc)"
+    help = "file containing a list of the control files with one feature per line. A named list is created containing one or more vectors to identify feature controls (for example, ERCC spike-in genes, mitochondrial genes, etc)"
   ),
   make_option(
     c("-c", "--cell-controls"),
