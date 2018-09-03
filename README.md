@@ -14,7 +14,7 @@ conda install bioconductor-scater-scripts
 
 ## Test installation
 
-There is a test script included which can be used to undertake a dummy run through all the commands below:
+There is a test script included:
 
 ```
 bioconductor-scater-scripts-post-install-tests.sh
