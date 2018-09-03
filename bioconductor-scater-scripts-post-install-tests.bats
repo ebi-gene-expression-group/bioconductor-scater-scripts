@@ -70,7 +70,7 @@
         skip "$use_existing_outputs $qc_singlecellexperiment_object exists and use_existing_outputs is set to 'true'"
     fi
 
-    run rm -f $qc_singlecellexperiment_object && scater-calculate-qc-metrics.R -i $raw_singlecellexperiment_object -e $exprs_values -f $feature_controls -c $cell_controls -n $nmads -p $pct_feature_controls_threshold -o $qc_singlecellexperiment_object
+    run rm -f $qc_singlecellexperiment_object && scater-calculate-qc-metrics.R -i $raw_singlecellexperiment_object -e $exprs_values -f $spikein_gene_sets_file -c $cell_controls -n $nmads -p $pct_feature_controls_threshold -o $qc_singlecellexperiment_object
     
     [ "$status" -eq 0 ]
     [ -f  "$qc_singlecellexperiment_object" ]

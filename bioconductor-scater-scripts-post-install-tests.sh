@@ -83,7 +83,6 @@ export return_log='TRUE'
 export log_exprs_offset='NULL'
 export centre_size_factors='TRUE'
 export return_norm_as_exprs='TRUE'
-export feature_controls="$test_genes"
 export cell_controls='NULL'
 export nmads=5
 export pct_feature_controls_threshold=80
