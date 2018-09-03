@@ -51,14 +51,18 @@
 }
 
 @test "Generate random genes - spikeins" {
-    if [ "$use_existing_outputs" = 'true' ] && [ -f "$test_genes" ]; then
-        skip "$use_existing_outputs $test_genes exists and use_existing_outputs is set to 'true'"
+    if [ "$use_existing_outputs" = 'true' ] && [ -f "$spikein_gene_sets_file" ]; then
+        skip "$use_existing_outputs $spikein_gene_sets_file exists and use_existing_outputs is set to 'true'"
     fi
 
-    run rm -f $test_genes && scater-get-random-genes.R $raw_singlecellexperiment_object $test_genes $n_spike_ins $n_genes
+    run rm -f $spikein_gene_sets_file*
+    for i in `seq 1 $n_spikein_gene_sets`;
+    do
+        rm -f $spikein_gene_sets_file.$i && scater-get-random-genes.R -i $raw_singlecellexperiment_object -o $spikein_gene_sets_file.$i -n $n_spikein_genes -s $i && echo $spikein_gene_sets_file.$i >> $spikein_gene_sets_file
+    done     
 
     [ "$status" -eq 0 ]
-    [ -f  "$test_genes" ]
+    [ -f  "$spikein_gene_sets_file" ]
 }
 
 @test "calculate QC metrics" {

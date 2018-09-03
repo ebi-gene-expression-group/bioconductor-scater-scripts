@@ -71,7 +71,7 @@ export cpm_singlecellexperiment_object="$output_dir/cpm_sce.rds"
 export norm_singlecellexperiment_object="$output_dir/norm_sce.rds"
 export qc_singlecellexperiment_object="$output_dir/qc_sce.rds"
 export cpm_matrix=$output_dir'/cpm_matrix.mtx'
-export test_genes="$data_dir/random_genes.txt"
+export spikein_gene_sets_file="$output_dir/random_genes.txt"
 
 ## Test parameters- would form config file in real workflow. DO NOT use these
 ## as default values without being sure what they mean.
@@ -87,8 +87,8 @@ export feature_controls="$test_genes"
 export cell_controls='NULL'
 export nmads=5
 export pct_feature_controls_threshold=80
-export n_spike_ins=2
-export n_genes=10
+export n_spikein_genes=10
+export n_spikein_gene_sets=2
 
 ################################################################################
 # Test individual scripts
