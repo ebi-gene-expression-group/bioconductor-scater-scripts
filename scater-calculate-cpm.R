@@ -1,11 +1,9 @@
 #!/usr/bin/env Rscript 
 
 # Load optparse we need to check inputs
-
 suppressPackageStartupMessages(require(optparse))
 
 # Load common functions
-
 suppressPackageStartupMessages(require(workflowscriptscommon))
 
 # parse options
@@ -41,6 +39,7 @@ option_list = list(
   )
 )
 
+# Parse the arguments
 opt <- wsc_parse_args(option_list, mandatory = c('input_object_file', 'size_factors', 'output_object_file', 'output_text_file'))
 
 # Check parameter values defined
@@ -50,28 +49,16 @@ if ( ! file.exists(opt$input_object_file)){
 }
 
 # Once arguments are satifcatory, load Scater package
-
 suppressPackageStartupMessages(require(scater))
 
-
 # Input from serialized R object
-
 SingleCellExperiment <- readRDS(opt$input_object_file)
 
-
 # calculate CPMs from raw count matrix
-
 cpm(SingleCellExperiment) <- calculateCPM(object = SingleCellExperiment, use.size.factors = opt$size_factors)
 
-
 # Output to a serialized R object
-
 saveRDS(SingleCellExperiment, file = opt$output_object_file)
 
-
 # Output cpm matrix to a simple file
-
 write.csv(as.matrix(cpm(SingleCellExperiment)), file = opt$output_text_file, row.names = TRUE)
-
-
-
