@@ -72,6 +72,8 @@ export norm_singlecellexperiment_object="$output_dir/norm_sce.rds"
 export qc_singlecellexperiment_object="$output_dir/qc_sce.rds"
 export cpm_matrix=$output_dir'/cpm_matrix.mtx'
 export spikein_gene_sets_file="$output_dir/random_genes.txt"
+export extracted_metrics_file="$output_dir/total_counts.txt"
+export outliers_file="$output_dir/outliers.txt"
 
 ## Test parameters- would form config file in real workflow. DO NOT use these
 ## as default values without being sure what they mean.
@@ -88,6 +90,10 @@ export nmads=5
 export pct_feature_controls_threshold=80
 export n_spikein_genes=10
 export n_spikein_gene_sets=2
+export outlier_min_diff=5
+export outlier_type='higher'
+export outlier_log='TRUE'
+export outlier_test_metric='total_counts'
 
 ################################################################################
 # Test individual scripts

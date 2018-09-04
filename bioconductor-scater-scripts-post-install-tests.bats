@@ -76,3 +76,25 @@
     [ -f  "$qc_singlecellexperiment_object" ]
 }
 
+@test "Extract metrics from a SingleCellExperiment" {
+    if [ "$use_existing_outputs" = 'true' ] && [ -f "$extracted_metrics_file" ]; then
+        skip "$use_existing_outputs $extracted_metrics_file exists and use_existing_outputs is set to 'true'"
+    fi
+
+    run rm -f $extracted_metrics_file && scater-extract-qc-metric.R -i $qc_singlecellexperiment_object -m $outlier_test_metric -o $extracted_metrics_file
+    
+    [ "$status" -eq 0 ]
+    [ -f  "$extracted_metrics_file" ]
+}
+
+@test "Detect outliers" {
+    if [ "$use_existing_outputs" = 'true' ] && [ -f "$outliers_file" ]; then
+        skip "$use_existing_outputs $outliers_file exists and use_existing_outputs is set to 'true'"
+    fi
+
+    run rm -f $outliers_file && scater-is-outlier.R -m $extracted_metrics_file -n $nmads -t $outlier_type -l $outlier_log -d outlier_min_diff -o $outliers_file
+    
+    [ "$status" -eq 0 ]
+    [ -f  "$outliers_file" ]
+}
+
