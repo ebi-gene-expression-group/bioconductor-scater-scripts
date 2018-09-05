@@ -58,7 +58,7 @@
     run rm -f $spikein_gene_sets_file*
     for i in `seq 1 $n_spikein_gene_sets`;
     do
-        rm -f $spikein_gene_sets_file.$i && scater-get-random-genes.R -i $raw_singlecellexperiment_object -o $spikein_gene_sets_file.$i -n $n_spikein_genes -s $i && echo $spikein_gene_sets_file.$i >> $spikein_gene_sets_file
+        rm -f $spikein_gene_sets_file.$i && singlecellexperiment-get-random-genes.R -i $raw_singlecellexperiment_object -o $spikein_gene_sets_file.$i -n $n_spikein_genes -s $i && echo $spikein_gene_sets_file.$i >> $spikein_gene_sets_file
     done     
 
     [ "$status" -eq 0 ]
