@@ -60,16 +60,6 @@ scater-is-outlier.R -m <metrics file> -n <nmads> -t <type> -l <log> -d <min.diff
 
 In addition to the function wrappers above the following accessory scripts are provided:
 
-### scater-get-random-genes.R 
-
-This script is used to generate random subsets of feature names from a SingleCellExperiment object. It is called like:
-
-```
-scater-get-random-genes.R -i <input SingleCellExperiment in .rds format> -o <output file> -n <numbe of features> -s <random seed>
-```
-
-Output is a text file with one feature per line.
-
 ### scater-extract-qc-metric.R
 
 This script extracts a single column of QC metric data, for example for use with the outlier detection script described above:
