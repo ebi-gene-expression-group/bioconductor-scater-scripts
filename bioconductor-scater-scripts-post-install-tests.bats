@@ -46,6 +46,25 @@
     [ -f  "$cpm_matrix" ]
 }
 
+# Generate sets of random genes to test the spike-in functionality
+
+@test "Generate random genes - spikeins" {
+    if [ "$use_existing_outputs" = 'true' ] && [ -f "$spikein_gene_sets_file" ]; then
+        skip "$use_existing_outputs $spikein_gene_sets_file exists and use_existing_outputs is set to 'true'"
+    fi
+
+    run rm -f $spikein_gene_sets_file*
+    for i in `seq 1 $n_spikein_gene_sets`;
+    do
+        rm -f $spikein_gene_sets_file.$i && singlecellexperiment-get-random-genes.R -i $filtered_singlecellexperiment_object -o $spikein_gene_sets_file.$i -n $n_spikein_genes -s $i && echo $spikein_gene_sets_file.$i >> $spikein_gene_sets_file
+    done     
+    echo "status = ${status}"
+    echo "output = ${output}"
+
+    [ "$status" -eq 0 ]
+    [ -f  "$spikein_gene_sets_file" ]
+}
+
 # Calculate some QC metrics
 
 @test "Calculate QC metrics" {
@@ -90,25 +109,6 @@
     
     [ "$status" -eq 0 ]
     [ -f  "$norm_singlecellexperiment_object" ]
-}
-
-# Generate sets of random genes to test the spike-in functionality
-
-@test "Generate random genes - spikeins" {
-    if [ "$use_existing_outputs" = 'true' ] && [ -f "$spikein_gene_sets_file" ]; then
-        skip "$use_existing_outputs $spikein_gene_sets_file exists and use_existing_outputs is set to 'true'"
-    fi
-
-    run rm -f $spikein_gene_sets_file*
-    for i in `seq 1 $n_spikein_gene_sets`;
-    do
-        rm -f $spikein_gene_sets_file.$i && singlecellexperiment-get-random-genes.R -i $filtered_singlecellexperiment_object -o $spikein_gene_sets_file.$i -n $n_spikein_genes -s $i && echo $spikein_gene_sets_file.$i >> $spikein_gene_sets_file
-    done     
-    echo "status = ${status}"
-    echo "output = ${output}"
-
-    [ "$status" -eq 0 ]
-    [ -f  "$spikein_gene_sets_file" ]
 }
 
 # Extract a set of values for a metric to use in outlier detection
