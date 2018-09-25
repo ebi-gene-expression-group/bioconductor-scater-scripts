@@ -38,6 +38,12 @@ scater-read-10x-results.R -d <10X data directory> -o <output SingleCellExperimen
 scater-calculate-cpm.R -i <input SingleCellExperiment in .rds format> -s <size_factors> -o <output SingleCellExperiment in .rds format> -t <output matrix in .csv format>
 ```
 
+### Matrix filtering
+
+```
+scater-filter.R -i <input SingleCellExperiment in .rds format> -s <cell QC metric 1>,<cell QC metric 2>,... -l <Lower limit to metric 12,<lower limit for metric 2> -t <feature QC metric 1>,... -m <feature QC metric lower limit 1> -o <filtered SingleCellExperiment in .rds format> -u <output matrix showing filtered cells by metric> -v <output matrix showing filtered features by metric>
+```
+
 ### normalize()
 
 ```
