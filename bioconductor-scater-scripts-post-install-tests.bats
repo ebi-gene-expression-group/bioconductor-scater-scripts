@@ -48,7 +48,7 @@
 
 # Calculate some QC metrics
 
-@test "calculate QC metrics" {
+@test "Calculate QC metrics" {
     if [ "$use_existing_outputs" = 'true' ] && [ -f "$qc_singlecellexperiment_object" ]; then
         skip "$use_existing_outputs $qc_singlecellexperiment_object exists and use_existing_outputs is set to 'true'"
     fi
@@ -61,9 +61,9 @@
     [ -f  "$qc_singlecellexperiment_object" ]
 }
 
-# Filter cells and features based on the QC metrix
+# Filter cells and features based on the QC metrics
 
-@test "filter based on QC metrics" {
+@test "Filter based on QC metrics" {
     if [ "$use_existing_outputs" = 'true' ] && [ -f "$filtered_singlecellexperiment_object" ]; then
         skip "$use_existing_outputs $filtered_singlecellexperiment_object exists and use_existing_outputs is set to 'true'"
     fi
