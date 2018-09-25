@@ -46,21 +46,6 @@
     [ -f  "$cpm_matrix" ]
 }
 
-# Normalise raw counts
-
-@test "Normalisation of raw SingleCellExperiment counts" {
-    if [ "$use_existing_outputs" = 'true' ] && [ -f "$norm_singlecellexperiment_object" ]; then
-        skip "$use_existing_outputs $norm_singlecellexperiment_object exists and use_existing_outputs is set to 'true'"
-    fi
-
-    run rm -f $norm_singlecellexperiment_object && scater-normalize.R -i $raw_singlecellexperiment_object -e $exprs_values -l $return_log -f $log_exprs_offset -c $centre_size_factors -r $return_norm_as_exprs -o $norm_singlecellexperiment_object
-    echo "status = ${status}"
-    echo "output = ${output}"
-    
-    [ "$status" -eq 0 ]
-    [ -f  "$norm_singlecellexperiment_object" ]
-}
-
 # Generate sets of random genes to test the spike-in functionality
 
 @test "Generate random genes - spikeins" {
@@ -80,9 +65,10 @@
     [ -f  "$spikein_gene_sets_file" ]
 }
 
+
 # Calculate some QC metrics
 
-@test "calculate QC metrics" {
+@test "Calculate QC metrics" {
     if [ "$use_existing_outputs" = 'true' ] && [ -f "$qc_singlecellexperiment_object" ]; then
         skip "$use_existing_outputs $qc_singlecellexperiment_object exists and use_existing_outputs is set to 'true'"
     fi
@@ -95,6 +81,37 @@
     [ -f  "$qc_singlecellexperiment_object" ]
 }
 
+# Filter cells and features based on the QC metrics
+
+@test "Filter based on QC metrics" {
+    if [ "$use_existing_outputs" = 'true' ] && [ -f "$filtered_singlecellexperiment_object" ]; then
+        skip "$use_existing_outputs $filtered_singlecellexperiment_object exists and use_existing_outputs is set to 'true'"
+    fi
+
+    run rm -f $filtered_singlecellexperiment_object && scater-filter.R -i $qc_singlecellexperiment_object -s total_counts,total_features -l $min_cell_total_counts,$min_cell_total_features -t n_cells_counts -m $min_feature_n_cells_counts -o $filtered_singlecellexperiment_object -u $cell_filter_matrix -v $feature_filter_matrix
+    
+    echo "status = ${status}"
+    echo "output = ${output}"
+    
+    [ "$status" -eq 0 ]
+    [ -f  "$filtered_singlecellexperiment_object" ]
+}
+
+# Normalise filtered counts
+
+@test "Normalisation of filtered SingleCellExperiment counts" {
+    if [ "$use_existing_outputs" = 'true' ] && [ -f "$norm_singlecellexperiment_object" ]; then
+        skip "$use_existing_outputs $norm_singlecellexperiment_object exists and use_existing_outputs is set to 'true'"
+    fi
+
+    run rm -f $norm_singlecellexperiment_object && scater-normalize.R -i $filtered_singlecellexperiment_object -e $exprs_values -l $return_log -f $log_exprs_offset -c $centre_size_factors -r $return_norm_as_exprs -o $norm_singlecellexperiment_object
+    echo "status = ${status}"
+    echo "output = ${output}"
+    
+    [ "$status" -eq 0 ]
+    [ -f  "$norm_singlecellexperiment_object" ]
+}
+
 # Extract a set of values for a metric to use in outlier detection
 
 @test "Extract metrics from a SingleCellExperiment" {
@@ -102,7 +119,7 @@
         skip "$use_existing_outputs $extracted_metrics_file exists and use_existing_outputs is set to 'true'"
     fi
 
-    run rm -f $extracted_metrics_file && scater-extract-qc-metric.R -i $qc_singlecellexperiment_object -m $outlier_test_metric -o $extracted_metrics_file
+    run rm -f $extracted_metrics_file && scater-extract-qc-metric.R -i $norm_singlecellexperiment_object -m $outlier_test_metric -o $extracted_metrics_file
     echo "status = ${status}"
     echo "output = ${output}"
     
@@ -124,4 +141,3 @@
     [ "$status" -eq 0 ]
     [ -f  "$outliers_file" ]
 }
-
