@@ -70,6 +70,9 @@ export raw_singlecellexperiment_object="$output_dir/raw_sce.rds"
 export cpm_singlecellexperiment_object="$output_dir/cpm_sce.rds"
 export norm_singlecellexperiment_object="$output_dir/norm_sce.rds"
 export qc_singlecellexperiment_object="$output_dir/qc_sce.rds"
+export filtered_singlecellexperiment_object="$output_dir/filtered_sce.rds"
+export cell_filter_matrix="$output_dir/filtered_cells.csv"
+export feature_filter_matrix="$output_dir/filtered_features.csv"
 export cpm_matrix=$output_dir'/cpm_matrix.mtx'
 export spikein_gene_sets_file="$output_dir/random_genes.txt"
 export extracted_metrics_file="$output_dir/total_counts.txt"
@@ -78,11 +81,15 @@ export outliers_file="$output_dir/outliers.txt"
 ## Test parameters- would form config file in real workflow. DO NOT use these
 ## as default values without being sure what they mean.
 
-### optional variables parameters
+### Workflow parameters
+
+export min_cell_total_counts=500
+export min_cell_total_features=500
+export min_feature_n_cells_counts=10
 export size_factors='TRUE'
 export exprs_values="counts"
 export return_log='TRUE'
-export log_exprs_offset='NULL'
+export log_exprs_offset=1
 export centre_size_factors='TRUE'
 export return_norm_as_exprs='TRUE'
 export cell_controls='NULL'

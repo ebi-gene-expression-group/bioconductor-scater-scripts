@@ -61,8 +61,6 @@ option_list = list(
 
 opt <- wsc_parse_args(option_list, mandatory = c('input_object_file', 'output_object_file'))
 
-print(opt)
-
 # Check parameter values defined
 if ( ! file.exists(opt$input_object_file)){
   stop((paste('File object or matrix', opt$input_object_file, 'does not exist')))
