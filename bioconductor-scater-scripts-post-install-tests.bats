@@ -56,7 +56,7 @@
     run rm -f $spikein_gene_sets_file*
     for i in `seq 1 $n_spikein_gene_sets`;
     do
-        rm -f $spikein_gene_sets_file.$i && singlecellexperiment-get-random-genes.R -i $filtered_singlecellexperiment_object -o $spikein_gene_sets_file.$i -n $n_spikein_genes -s $i && echo $spikein_gene_sets_file.$i >> $spikein_gene_sets_file
+        rm -f $spikein_gene_sets_file.$i && singlecellexperiment-get-random-genes.R -i $raw_singlecellexperiment_object -o $spikein_gene_sets_file.$i -n $n_spikein_genes -s $i && echo $spikein_gene_sets_file.$i >> $spikein_gene_sets_file
     done     
     echo "status = ${status}"
     echo "output = ${output}"
@@ -64,6 +64,7 @@
     [ "$status" -eq 0 ]
     [ -f  "$spikein_gene_sets_file" ]
 }
+
 
 # Calculate some QC metrics
 
@@ -96,9 +97,9 @@
     [ -f  "$filtered_singlecellexperiment_object" ]
 }
 
-# Normalise raw counts
+# Normalise filtered counts
 
-@test "Normalisation of raw SingleCellExperiment counts" {
+@test "Normalisation of filtered SingleCellExperiment counts" {
     if [ "$use_existing_outputs" = 'true' ] && [ -f "$norm_singlecellexperiment_object" ]; then
         skip "$use_existing_outputs $norm_singlecellexperiment_object exists and use_existing_outputs is set to 'true'"
     fi
