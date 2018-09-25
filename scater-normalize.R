@@ -32,7 +32,7 @@ option_list = list(
   make_option(
     c("-f", "--log-exprs-offset"),
     action = "store",
-    default = NULL,
+    default = 1,
     type = 'numeric',
     help = "scalar numeric value giving the offset to add when taking log2 of normalised values to return as expression values. If NULL, value is taken from metadata(object)$log.exprs.offset if defined, otherwise 1."
   ),
