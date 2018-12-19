@@ -14,7 +14,14 @@ option_list = list(
     action = "store",
     default = NA,
     type = 'character',
-    help = "File name in which a serialized R SingleCellExperiment object where object matrix found  "
+    help = "File name containing serialized SingleCellExperiment object or count matrix."
+  ),
+  make_option(
+    c("-e", "--exprs-values"),
+    action = "store",
+    default = 'counts',
+    type = 'character',
+    help = "A string specifying the assay of ‘object’ containing the count matrix, if ‘object’ is a SingleCellExperiment."
   ),
   make_option(
     c("-s", "--size-factors"),
@@ -55,7 +62,7 @@ suppressPackageStartupMessages(require(scater))
 SingleCellExperiment <- readRDS(opt$input_object_file)
 
 # calculate CPMs from raw count matrix
-cpm(SingleCellExperiment) <- calculateCPM(object = SingleCellExperiment, use.size.factors = opt$size_factors)
+cpm(SingleCellExperiment) <- calculateCPM(object = SingleCellExperiment, use_size_factors = opt$size_factors, exprs_values = opt$exprs_values)
 
 # Output to a serialized R object
 saveRDS(SingleCellExperiment, file = opt$output_object_file)
