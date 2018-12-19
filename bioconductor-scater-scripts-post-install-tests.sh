@@ -69,6 +69,10 @@ export raw_matrix=$data_dir'/matrix.mtx'
 export raw_singlecellexperiment_object="$output_dir/raw_sce.rds"
 export cpm_singlecellexperiment_object="$output_dir/cpm_sce.rds"
 export norm_singlecellexperiment_object="$output_dir/norm_sce.rds"
+export pca_singlecellexperiment_object="$output_dir/pca_sce.rds"
+export pca_plot_file="$output_dir/pca.png"
+export tsne_plot_file="$output_dir/tsne.png"
+export tsne_singlecellexperiment_object="$output_dir/tnse_sce.rds"
 export qc_singlecellexperiment_object="$output_dir/qc_sce.rds"
 export filtered_singlecellexperiment_object="$output_dir/filtered_sce.rds"
 export cell_filter_matrix="$output_dir/filtered_cells.csv"
@@ -103,6 +107,19 @@ export nmads=5
 export outlier_type='higher'
 export outlier_log='TRUE'
 export outlier_test_metric='total_counts'
+export pca_ncomponents=2
+export pca_method='prcomp'
+export pca_ntop=500
+export pca_exprs_values='logcounts'
+export pca_scale_features=TRUE
+export pca_detect_outliers=TRUE
+export tsne_use_dimred='PCA'
+export tsne_n_dimred=20
+export tsne_perplexity=25
+
+export plot_components='1,2'
+export png_height=1000
+export png_width=1000
 
 ################################################################################
 # Test individual scripts
