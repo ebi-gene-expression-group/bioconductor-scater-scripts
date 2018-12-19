@@ -22,7 +22,7 @@
         skip "$use_existing_outputs $raw_singlecellexperiment_object exists and use_existing_outputs is set to 'true'"
     fi
     
-    run rm -f $raw_singlecellexperiment_object && scater-read-10x-results.R -d $data_dir -o $raw_singlecellexperiment_object
+    run rm -f $raw_singlecellexperiment_object && dropletutils-read-10x-counts.R -s $data_dir -c $col_names -o $raw_singlecellexperiment_object
     echo "status = ${status}"
     echo "output = ${output}"
     
@@ -73,7 +73,7 @@
         skip "$use_existing_outputs $qc_singlecellexperiment_object exists and use_existing_outputs is set to 'true'"
     fi
 
-    run rm -f $qc_singlecellexperiment_object && scater-calculate-qc-metrics.R -i $raw_singlecellexperiment_object -e $exprs_values -f $spikein_gene_sets_file -c $cell_controls -n $nmads -p $pct_feature_controls_threshold -o $qc_singlecellexperiment_object
+    run rm -f $qc_singlecellexperiment_object && scater-calculate-qc-metrics.R -i $raw_singlecellexperiment_object -e $exprs_values -f $spikein_gene_sets_file -c $cell_controls -p $percent_top -d $detection_limit -s $use_spikes -o $qc_singlecellexperiment_object
     echo "status = ${status}"
     echo "output = ${output}"
     
@@ -104,7 +104,7 @@
         skip "$use_existing_outputs $norm_singlecellexperiment_object exists and use_existing_outputs is set to 'true'"
     fi
 
-    run rm -f $norm_singlecellexperiment_object && scater-normalize.R -i $filtered_singlecellexperiment_object -e $exprs_values -l $return_log -f $log_exprs_offset -c $centre_size_factors -r $return_norm_as_exprs -o $norm_singlecellexperiment_object
+    run rm -f $norm_singlecellexperiment_object && scater-normalize.R -i $filtered_singlecellexperiment_object -e $exprs_values -l $return_log -f $log_exprs_offset -c $centre_size_factors -o $norm_singlecellexperiment_object
     echo "status = ${status}"
     echo "output = ${output}"
     
@@ -134,7 +134,7 @@
         skip "$use_existing_outputs $outliers_file exists and use_existing_outputs is set to 'true'"
     fi
 
-    run rm -f $outliers_file && scater-is-outlier.R -m $extracted_metrics_file -n $nmads -t $outlier_type -l $outlier_log -d outlier_min_diff -o $outliers_file
+    run rm -f $outliers_file && scater-is-outlier.R -m $extracted_metrics_file -n $nmads -t $outlier_type -l $outlier_log -d $outlier_min_diff -o $outliers_file
     echo "status = ${status}"
     echo "output = ${output}"
     

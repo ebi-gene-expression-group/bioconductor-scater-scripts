@@ -83,21 +83,23 @@ export outliers_file="$output_dir/outliers.txt"
 
 ### Workflow parameters
 
+export col_names=TRUE
 export min_cell_total_counts=500
-export min_cell_total_features=500
+export min_cell_total_features=50
 export min_feature_n_cells_counts=10
 export size_factors='TRUE'
 export exprs_values="counts"
 export return_log='TRUE'
 export log_exprs_offset=1
 export centre_size_factors='TRUE'
-export return_norm_as_exprs='TRUE'
 export cell_controls='NULL'
-export nmads=5
-export pct_feature_controls_threshold=80
+export percent_top='5,100,200,500'
+export detection_limit=5
+export use_spikes=TRUE
 export n_spikein_genes=10
 export n_spikein_gene_sets=2
 export outlier_min_diff=5
+export nmads=5
 export outlier_type='higher'
 export outlier_log='TRUE'
 export outlier_test_metric='total_counts'

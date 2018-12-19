@@ -287,6 +287,16 @@ if (ncol(feature_select_matrix) > 0){
   }
 }
 
+# Print an object summary
+
+cat(c(
+  '\n# Filtered object summary', 
+  capture.output(print(SingleCellExperiment)), 
+  '\n# Metadata sample', 
+  capture.output(head(colData(SingleCellExperiment)))
+), 
+sep = '\n')
+
 ################################################################################
 # Output results
 ################################################################################
