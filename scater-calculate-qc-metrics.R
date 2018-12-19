@@ -20,7 +20,7 @@ option_list = list(
     action = "store",
     default = 'counts',
     type = 'character',
-    help= "character(1), indicating slot of the 'assays' of the 'object' that should be used to define expression. Valid options are 'counts' [default; recommended],'tpm','fpkm' and 'logcounts', or anything else in the object added manually by the user."
+    help= "A string indicating which ‘assays’ in the ‘object’ should be used to define expression."
   ),
   make_option(
     c("-f", "--feature-controls"),
@@ -37,18 +37,25 @@ option_list = list(
     help = "file (one cell per line) to be used to derive a vector of cell (sample) names used to identify cell controls (for example, blank wells or bulk controls)."
   ),
   make_option(
-    c("-n", "--nmads"),
+    c("-p", "--percent-top"),
     action = "store",
-    default = 5,
-    type = 'numeric',
-    help = "numeric scalar giving the number of median absolute deviations to be used to flag potentially problematic cells based on total counts (total number of counts for the cell, or library size) and total_features (number of features with non-zero expression). For total_features, cells are flagged for filtering only if total_features is 'nmads' below the median."
-  ), 
+    default = '50,100,200,500',
+    type = 'character',
+    help= "Comma-separated list of integers. Each element is treated as a number of top genes to compute the percentage of library size occupied by the most highly expressed genes in each cell." 
+  ),
   make_option(
-    c("-p", "--pct-feature-controls-threshold"),
+    c("-d", "--detection-limit"),
     action = "store",
-    default = 80,
+    default = 0,
     type = 'numeric',
-    help = "numeric scalar giving a threshold for percentage of expression values accounted for by feature controls. Used as to flag cells that may be filtered based on high percentage of expression from feature controls."
+    help= "A numeric scalar to be passed to 'nexprs', specifying the lower detection limit for expression."
+  ),
+  make_option(
+    c("-s", "--use-spikes"),
+    action = "store",
+    default = TRUE,
+    type = 'logical',
+    help= "A logical scalar indicating whether existing spike-in sets in ‘object’ should be automatically added to 'feature_controls', see '?isSpike'."
   ),
   make_option(
     c("-o", "--output-object-file"),
@@ -97,6 +104,10 @@ if (! is.null(opt$cell_controls) && opt$cell_controls != 'NULL'){
   cell_controls <- NULL
 }
 
+# Parse out percent_top
+
+percent_top <- wsc_parse_numeric(opt, 'percent_top')
+
 # Once arguments are satisfactory, load Scater package
 suppressPackageStartupMessages(require(scater))
 
@@ -104,7 +115,7 @@ suppressPackageStartupMessages(require(scater))
 SingleCellExperiment <- readRDS(opt$input_object_file)
 
 # calculate CPMs from raw count matrix
-SingleCellExperiment  <- calculateQCMetrics(object = SingleCellExperiment, exprs_values = opt$exprs_values, feature_controls = feature_controls, cell_controls = cell_controls, nmads = opt$nmads, pct_feature_controls_threshold = opt$pct_feature_controls_threshold)
+SingleCellExperiment  <- calculateQCMetrics(object = SingleCellExperiment, exprs_values = opt$exprs_values, feature_controls = feature_controls, cell_controls = cell_controls, percent_top = percent_top, detection_limit = opt$detection_limit, use_spikes = opt$use_spikes)
 
 # Output to a serialized R object
 saveRDS(SingleCellExperiment, file = opt$output_object_file)
