@@ -112,5 +112,5 @@ SingleCellExperiment <- readRDS(opt$input_object_file)
 
 # Make the plot and write to file
 png(filename = opt$output_image_file, width = opt$png_width, height = opt$png_height)
-plotReducedDim(SingleCellExperiment, use_dimred = opt$use_dimred, ncomponents = wsc_parse_numeric(opt, 'ncomponents'), percentVar = opt$percent_var, colour_by = opt$color_by, shape_by = opt$shape_by, size_by = opt$size_by, by_exprs_values = opt$by_exprs_values, by_show_single = opt$by_show_single )
+plotReducedDim(SingleCellExperiment, use_dimred = opt$use_dimred, ncomponents = wsc_parse_numeric(opt, 'ncomponents'), percentVar = opt$percent_var, colour_by = opt$colour_by, shape_by = opt$shape_by, size_by = opt$size_by, by_exprs_values = opt$by_exprs_values, by_show_single = opt$by_show_single )
 dev.off()
