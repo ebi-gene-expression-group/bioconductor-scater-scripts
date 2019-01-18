@@ -26,9 +26,9 @@ option_list = list(
   make_option(
     c("-s", "--size-factors"),
     action = "store",
-    default = NA,
+    default = TRUE,
     type = 'logical',
-    help = "A  logical  scalar  indicating  whether  size  factors  in object should  be  used  to compute effective library sizes.  If not, all size factors are deleted and librarysize-based factors are used instead (seelibrarySizeFactors.  Alternatively, anumeric vector containing a size factor for each cell, which is used in place ofsizeFactor(object)."
+    help = "A logical scalar indicating whether size factors in object should be used to compute effective library sizes. If not, all size factors are deleted and librarysize-based factors are used instead (seelibrarySizeFactors). Alternatively, a numeric vector containing a size factor for each cell, which is used in place ofsizeFactor(object)."
   ),
   make_option(
     c("-o", "--output-object-file"),
