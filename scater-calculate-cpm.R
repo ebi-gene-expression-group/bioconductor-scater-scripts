@@ -47,7 +47,7 @@ option_list = list(
 )
 
 # Parse the arguments
-opt <- wsc_parse_args(option_list, mandatory = c('input_object_file', 'size_factors', 'output_object_file', 'output_text_file'))
+opt <- wsc_parse_args(option_list, mandatory = c('input_object_file', 'size_factors', 'output_object_file'))
 
 # Check parameter values defined
 
