@@ -73,11 +73,11 @@ option_list = list(
     help = "Comma-separated high cutoffs for the parameters (default is Inf)."
   ),
   make_option(
-    c("-f", "--features--use"),
+    c("-f", "--features-use"),
     action = "store",
     default = NULL,
     type = 'character',
-    help = "Comma-separated list of cell names to use as a subset. Alternatively, text file with one cell per line providing cell names to use as a subset."
+    help = "Comma-separated list of feature names to use as a subset. Alternatively, text file with one feature per line providing feature names to use as a subset."
   ),
   make_option(
     c("-o", "--output-object-file"),
