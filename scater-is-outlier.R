@@ -13,7 +13,7 @@ option_list = list(
     action = "store",
     default = NA,
     type = 'character',
-    help = "File with one value per line used to define a numeric or integer vector of values for a metric."
+    help = "Two column table with cell names on the first column and numeric QC metric on the second column."
   ),
   make_option(
     c("-n", "--nmads"),
