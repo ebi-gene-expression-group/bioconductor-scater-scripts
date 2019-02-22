@@ -1,6 +1,6 @@
-# Wrapper scripts for components of the Scater toolchain
+# bioconductor-scater-scripts [![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](http://bioconda.github.io/recipes/bioconductor-scater-scripts/README.html)
 
-In order to wrap Scater's internal workflow in any given workflow language, it's important to have scripts to call each of those steps. These scripts are being written here, and will improve in completeness as time progresses. 
+In order to wrap Scater's internal workflow in any given workflow language, it's important to have scripts to call each of those steps, which is what this package provides.
 
 ## Install
 
@@ -41,7 +41,7 @@ scater-calculate-cpm.R -i <input SingleCellExperiment in .rds format> -s <size_f
 ### Matrix filtering
 
 ```
-scater-filter.R -i <input SingleCellExperiment in .rds format> -s <cell QC metric 1>,<cell QC metric 2>,... -l <Lower limit to metric 12,<lower limit for metric 2> -t <feature QC metric 1>,... -m <feature QC metric lower limit 1> -o <filtered SingleCellExperiment in .rds format> -u <output matrix showing filtered cells by metric> -v <output matrix showing filtered features by metric>
+scater-filter.R -i <input SingleCellExperiment in .rds format> -s <cell QC metric 1>,<cell QC metric 2>,... -l <Lower limit to metric 1>,<lower limit for metric 2> -t <feature QC metric 1>,... -m <feature QC metric lower limit 1> -o <filtered SingleCellExperiment in .rds format> -u <output matrix showing filtered cells by metric> -v <output matrix showing filtered features by metric>
 ```
 
 ### normalize()
