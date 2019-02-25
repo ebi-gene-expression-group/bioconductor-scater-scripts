@@ -64,6 +64,9 @@ SingleCellExperiment <- readRDS(opt$input_object_file)
 # calculate CPMs from raw count matrix
 cpm(SingleCellExperiment) <- calculateCPM(object = SingleCellExperiment, use_size_factors = opt$size_factors, exprs_values = opt$exprs_values)
 
+# Print introspective information
+cat(capture.output(SingleCellExperiment), sep='\n')
+
 # Output to a serialized R object
 saveRDS(SingleCellExperiment, file = opt$output_object_file)
 
