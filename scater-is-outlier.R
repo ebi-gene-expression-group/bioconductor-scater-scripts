@@ -64,5 +64,10 @@ suppressPackageStartupMessages(require(scater))
 
 metric_vector <- wsc_read_vector(opt$metric_file)
 
+outliers <- metric_vector[isOutlier(metric_vector)]
+
+# Print number of outliers
+cat(paste(length(outliers), 'outliers identified'), sep='\n')
+
 # Write those elements to file that qualify as outliers
-wsc_write_vector(metric_vector[isOutlier(metric_vector)], opt$output_file)
+wsc_write_vector(outliers, opt$output_file)
