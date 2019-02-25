@@ -117,6 +117,9 @@ SingleCellExperiment <- readRDS(opt$input_object_file)
 # calculate CPMs from raw count matrix
 SingleCellExperiment  <- calculateQCMetrics(object = SingleCellExperiment, exprs_values = opt$exprs_values, feature_controls = feature_controls, cell_controls = cell_controls, percent_top = percent_top, detection_limit = opt$detection_limit, use_spikes = opt$use_spikes)
 
+# Print introspective information
+cat(capture.output(SingleCellExperiment), sep='\n')
+
 # Output to a serialized R object
 saveRDS(SingleCellExperiment, file = opt$output_object_file)
 
