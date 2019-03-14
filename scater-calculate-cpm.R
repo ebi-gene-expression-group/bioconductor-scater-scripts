@@ -40,7 +40,7 @@ option_list = list(
   make_option(
     c("-t", "--output-text-file"),
     action = "store",
-    default = NA,
+    default = NULL,
     type = 'character',
     help = "File name in which to store CPM values."
   )
@@ -71,4 +71,6 @@ cat(capture.output(SingleCellExperiment), sep='\n')
 saveRDS(SingleCellExperiment, file = opt$output_object_file)
 
 # Output cpm matrix to a simple file
-write.csv(as.matrix(cpm(SingleCellExperiment)), file = opt$output_text_file, row.names = TRUE)
+if (!is.null(opt$output_text_file)) {
+    write.csv(as.matrix(cpm(SingleCellExperiment)), file = opt$output_text_file, row.names = TRUE)
+}
