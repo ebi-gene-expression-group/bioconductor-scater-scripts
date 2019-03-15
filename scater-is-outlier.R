@@ -13,7 +13,7 @@ option_list = list(
     action = "store",
     default = NA,
     type = 'character',
-    help = "File with one value per line used to define a numeric or integer vector of values for a metric."
+    help = "Two column table with cell names on the first column and numeric QC metric on the second column."
   ),
   make_option(
     c("-n", "--nmads"),
@@ -64,5 +64,10 @@ suppressPackageStartupMessages(require(scater))
 
 metric_vector <- wsc_read_vector(opt$metric_file)
 
+outliers <- metric_vector[isOutlier(metric_vector)]
+
+# Print number of outliers
+cat(paste(length(outliers), 'outliers identified'), sep='\n')
+
 # Write those elements to file that qualify as outliers
-wsc_write_vector(metric_vector[isOutlier(metric_vector)], opt$output_file)
+wsc_write_vector(outliers, opt$output_file)

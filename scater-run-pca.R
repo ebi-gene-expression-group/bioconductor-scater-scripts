@@ -131,6 +131,9 @@ if ( opt$use_coldata ){
 
 SingleCellExperiment <- runPCA( SingleCellExperiment, ncomponents = opt$ncomponents, method = opt$method, ntop = opt$ntop, exprs_values = opt$exprs_values, feature_set = feature_set, scale_features = opt$scale_features, selected_variables = opt$selected_variables, detect_outliers = opt$detect_outliers  )
 
+# Print introspective information
+cat(capture.output(SingleCellExperiment), sep='\n')
+
 # Output to a serialized R object
 saveRDS(SingleCellExperiment, file = opt$output_object_file)
 

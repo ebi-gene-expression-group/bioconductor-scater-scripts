@@ -52,6 +52,13 @@ option_list = list(
     help = "Comma-separated list of cell names to use as a subset. Alternatively, text file with one cell per line providing cell names to use as a subset."
   ),
   make_option(
+    c("-C", "--cells-discard"),
+    action = "store",
+    default = NULL,
+    type = 'character',
+    help = "Comma-separated list of cell names to discard as a subset. Alternatively, text file with one cell per line providing cell names to discard as a subset."
+  ),
+  make_option(
     c("-t", "--subset-feature-variables"),
     action = "store",
     default = NA,
@@ -73,11 +80,11 @@ option_list = list(
     help = "Comma-separated high cutoffs for the parameters (default is Inf)."
   ),
   make_option(
-    c("-f", "--features--use"),
+    c("-f", "--features-use"),
     action = "store",
     default = NULL,
     type = 'character',
-    help = "Comma-separated list of cell names to use as a subset. Alternatively, text file with one cell per line providing cell names to use as a subset."
+    help = "Comma-separated list of feature names to use as a subset. Alternatively, text file with one feature per line providing feature names to use as a subset."
   ),
   make_option(
     c("-o", "--output-object-file"),
@@ -153,6 +160,17 @@ if (! is.null(cells_use)){
   # Record which cells we've selected in this way
   
   cell_select_matrix$cells_use <- rownames(cell_select_matrix) %in% cells_use
+}
+
+# Check the cells_discard and remove cells by name
+cells_discard <- opt$cells_discard
+if (! is.null(cells_discard)){
+  if (file.exists(cells_discard)){
+    cells_discard <- readLines(cells_discard)
+  }else{
+    cells_discard <- wsc_split_string(cells_discard)
+  }
+  cell_select_matrix$cells_not_discarded <- ! rownames(cell_select_matrix) %in% cells_discard
 }
 
 # Are cell-wise criteria supplied?
@@ -312,6 +330,9 @@ if ( !is.na(opt$output_cellselect_file) ){
 if ( !is.na(opt$output_featureselect_file) ){
   write.csv(feature_select_matrix, file=opt$output_featureselect_file, quote = FALSE)
 }
+
+# Print introspective information
+cat(capture.output(SingleCellExperiment), sep='\n')
 
 # Output to a serialized R object
 

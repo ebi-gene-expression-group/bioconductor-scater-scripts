@@ -134,6 +134,9 @@ if ( is.null(opt$perplexity) ){
 
 SingleCellExperiment <- runTSNE( SingleCellExperiment, ncomponents = opt$ncomponents, ntop = opt$ntop, feature_set = feature_set, exprs_values = opt$exprs_values, scale_features = opt$scale_features, use_dimred = opt$use_dimred, n_dimred = opt$n_dimred, perplexity = perplexity, pca = opt$pca, initial_dims = opt$initial_dims  )
 
+# Print introspective information
+cat(capture.output(SingleCellExperiment), sep='\n')
+
 # Output to a serialized R object
 saveRDS(SingleCellExperiment, file = opt$output_object_file)
 

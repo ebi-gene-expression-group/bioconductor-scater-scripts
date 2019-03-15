@@ -88,7 +88,7 @@
         skip "$use_existing_outputs $filtered_singlecellexperiment_object exists and use_existing_outputs is set to 'true'"
     fi
 
-    run rm -f $filtered_singlecellexperiment_object && scater-filter.R -i $qc_singlecellexperiment_object -s total_counts,total_features -l $min_cell_total_counts,$min_cell_total_features -t n_cells_counts -m $min_feature_n_cells_counts -o $filtered_singlecellexperiment_object -u $cell_filter_matrix -v $feature_filter_matrix
+    run rm -f $filtered_singlecellexperiment_object && scater-filter.R -i $qc_singlecellexperiment_object -s $cell_metrics -l $min_cell_total_counts,$min_cell_total_features -t $gene_metrics -m $min_feature_n_cells_counts -o $filtered_singlecellexperiment_object -u $cell_filter_matrix -v $feature_filter_matrix
     
     echo "status = ${status}"
     echo "output = ${output}"
