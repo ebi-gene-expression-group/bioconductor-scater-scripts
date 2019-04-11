@@ -9,7 +9,7 @@ The recommended method for script installation is via a Bioconda recipe called b
 With the [Bioconda channels](https://bioconda.github.io/#set-up-channels) configured the latest release version of the package can be installed via the regular conda install command:
 
 ```
-conda install bioconductor-scater-scripts
+conda install scater-scripts
 ```
 
 ## Test installation
